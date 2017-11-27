@@ -65,7 +65,7 @@ namespace XelM
 					++i, ++l_count)
 			{
 				l_oss << i->first;
-				if ( l_count > 0 && l_count < l_Max )
+				if ( l_count < l_Max )
 				{
 					l_oss << ", ";
 				}
