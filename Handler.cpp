@@ -16,10 +16,10 @@ namespace XelM
 	const bool Handler::SelectRoom(const RoomId& p_RoomId)
 	{
 		bool l_result(false);
+
 		auto l_Found(m_Map.find(p_RoomId));
 		if ( l_Found != m_Map.end() )
 		{
-			m_Active = true;			
 			m_CurrentRoomPtr = l_Found->second;
 			l_result = true;
 		}
@@ -42,14 +42,14 @@ namespace XelM
 			const RoomId& p_Off)
 	{		
 		RoomPtr l_CreatedRoom(
-				Room::Create(
-						p_Title,
-						p_BodyText));		
+			Room::Create(
+				p_Title,
+				p_BodyText));
 		
 		SelectRoom(p_Off);
 
 		if ( m_CurrentRoomPtr )
-		{			
+		{
 			m_CurrentRoomPtr->AddDirection(
 				p_Direction,
 				l_CreatedRoom->Id);
@@ -64,16 +64,19 @@ namespace XelM
 		}
 
 		m_Map.emplace(
-				std::make_pair(
-						l_CreatedRoom->Id,
-						l_CreatedRoom));
+			std::make_pair(
+				l_CreatedRoom->Id,
+				l_CreatedRoom));
+
+		return l_CreatedRoom->Id;
 	}
 
 	const bool Handler::EnterRoom(const RoomId& p_Room)
 	{
 		bool l_result(SelectRoom(p_Room));
 		if ( l_result )
-		{				
+		{
+			m_Active = true;
 			m_CurrentRoomPtr->Enter();
 		}
 		return l_result;
@@ -120,6 +123,20 @@ namespace XelM
 				"The antechamber is off the main hall, it smells damp and clearly hasn't seen any activity for many years...",
 				'w',
 				l_MainHall));
+
+		RoomId l_Culvert(
+			l_result.AddRoom(
+				"Culvert",
+				"Through a broken wall panel the bed rock beyond looms, damp and tight fitting",
+				'n',
+				l_AnteChamber));
+
+		RoomId l_Niche(
+			l_result.AddRoom(
+				"Niche",
+				"The niche is set back from the Antechamber, once a quite place of contemplation, not there is naught but a skeleton laying forlorn amongst the dust...",
+				's',
+				l_AnteChamber));
 
 		return l_result;
 	}	

@@ -29,10 +29,10 @@ namespace XelM
 			Handler();
 
 			RoomId AddRoom(
-					const std::string& p_Title,
-					const std::string& p_BodyText,
-					const char& p_Direction = ' ',
-					const RoomId& p_Off = 0);
+				const std::string& p_Title,
+				const std::string& p_BodyText,
+				const char& p_Direction = ' ',
+				const RoomId& p_Off = 0);
 
 			const bool EnterRoom(const RoomId& p_Room);
 
