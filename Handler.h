@@ -22,13 +22,17 @@ namespace XelM
 			RoomId	m_CurrentRoomId;
 			bool m_Active;
 
+			const bool SelectRoom(const RoomId& p_RoomId);
+
 		public:
 
 			Handler();
 
 			RoomId AddRoom(
 					const std::string& p_Title,
-					const std::string& p_BodyText);
+					const std::string& p_BodyText,
+					const char& p_Direction = ' ',
+					const RoomId& p_Off = 0);
 
 			const bool EnterRoom(const RoomId& p_Room);
 
@@ -36,9 +40,7 @@ namespace XelM
 
 			const bool Active() const;
 
-			static Handler DefaultMap();
-
-			static void SimpleSleep(const unsigned int& p_Milliseconds);
+			static Handler DefaultMap();			
 
 	};
 

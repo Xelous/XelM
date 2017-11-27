@@ -7,6 +7,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "Helpers.h"
+
 namespace XelM
 {
 
@@ -43,8 +45,11 @@ namespace XelM
 
 	void Room::Enter()
 	{
-		std::cout << "You Enter the '" << Title << "'...\r\n";
-		std::cout << BodyText << std::endl;
+		std::ostringstream l_oss;
+		l_oss << "You Enter the '" << Title << "'...\r\n";
+		Helpers::FlowingText(l_oss.str());
+		Helpers::FlowingText(BodyText);
+		std::cout << std::endl;
 	}
 
 	void Room::PrintDirections() const
@@ -68,6 +73,34 @@ namespace XelM
 			l_oss << "] ";
 		}
 		std::cout << l_oss.str();
+	}
+
+	void Room::AddDirection(
+		const char& p_Direction,
+		const RoomId& p_RoomId)
+	{
+		if ( !ExitPossible(p_Direction) )
+		{
+			m_Exits.emplace(
+				std::make_pair(
+					p_Direction,
+					p_RoomId));
+		}
+		else
+		{
+			std::cout << "Error adding duplicate direction" << std::endl;
+		}
+	}
+
+	const RoomId Room::RoomInDirection(const Direction& p_Direction)
+	{
+		RoomId l_result(0);
+		auto l_Found(m_Exits.find(p_Direction));
+		if ( l_Found != m_Exits.end() )
+		{
+			l_result = l_Found->second;
+		}
+		return l_result;
 	}
 
 }

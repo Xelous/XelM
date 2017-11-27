@@ -48,6 +48,12 @@ namespace XelM
 
 			void PrintDirections() const;
 
+			void AddDirection(
+				const char& p_Direction,
+				const RoomId& p_RoomId);
+
+			const RoomId RoomInDirection(const Direction& p_RoomId);
+
     };
 
 }
