@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include <thread>
-#include <chrono>
 #include <sstream>
 
 #include "Helpers.h"
@@ -89,7 +88,8 @@ namespace XelM
 		{
 			m_CurrentRoomPtr->PrintDirections();
 		}
-		char l_direction;
+
+		char l_direction(' ');
 		std::cin >> l_direction;
 		l_direction = ::tolower(l_direction);
 
